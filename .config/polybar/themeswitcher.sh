@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Set the terminal title
+echo -ne "\033]0;JC Polybar Theme Switcher\007"
+
+# List of available themes
+THEMES=("JcDefault" "theme1")
+
+# File to store the current theme
+THEME_FILE=.jcpbtheme
+
+# Function to display the current theme
+display_current_theme() {
+  if [ -f "$THEME_FILE" ]; then
+    current_theme=$(cat "$THEME_FILE")
+    echo "Current theme: $current_theme"
+  else
+    echo "No theme selected. Please choose a theme from the options below."
+  fi
+}
+
+# Function to switch to a new theme
+switch_theme() {
+  clear
+  echo "JC Polybar Theme Switcher"
+  echo "------------------------"
+  echo "Select a theme:"
+  select theme in "${THEMES[@]}"; do
+    if [ -n "$theme" ]; then
+      echo "You selected: $theme"
+      echo "$theme" > "$THEME_FILE"
+      break
+    else
+      echo "Invalid selection. Please try again."
+    fi
+  done
+}
+
+# Function to handle errors
+handle_error() {
+  echo "Error: $1"
+  exit 1
+}
+
+# Main script
+
+display_current_theme
+switch_theme
+
+echo "Theme switched successfully!"
+echo "Press any key to continue..."
+read -n 1 -s
