@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Colors
 CRE=$(tput setaf 1) # Red
@@ -94,8 +94,11 @@ sleep 10
 
 for folder in polybar; do
     if [ -d "$HOME/.config/$folder" ]; then
-        mv "$HOME/.config/$folder" "$backup_folder/${folder}_$date" 2>> jcloger.log && \
-        printf "%s%s%s folder backed up successfully at %s%s/%s_%s%s\n" "${BLD}" "${CGR}" "$folder" "${CBL}" "$backup_folder" "$folder" "$date" "${CNC}"
+       if  mv "$HOME/.config/$folder" "$backup_folder/${folder}_$date" 2>> jcloger.log && \
+                printf "%s%s%s folder backed up successfully at %s%s/%s_%s%s\n" "${BLD}" "${CGR}" "$folder" "${CBL}" "$backup_folder" "$folder" "$date" "${CNC}"
+        else
+            printf "%s%sFailed to backup. See %jcloger.log%s\n" "${BLD}" "${CRE}" "${CBL}" "${CNC}"
+        fi
     else
         printf "%s%s%s folder does not exist, %sno backup needed%s\n" "${BLD}" "${CGR}" "$folder" "${CYE}" "${CNC}"
     fi
@@ -110,10 +113,13 @@ printf "Copying files to respective directories..\n"
 
 [ ! -d ~/.config ] && mkdir -p ~/.config
 
-for dirs in ~/polybarthememaker/config/*; do
+for dirs in ~/polybarthememaker/.config/*; do
     dir_name=$(basename "$dirs")
-    cp -R "${dirs}" ~/.config/ 2>> jcloger.log && \
-    printf "%s%s%s %sconfiguration installed succesfully%s\n" "${BLD}" "${CYE}" "${dir_name}" "${CGR}" "${CNC}"
+    if cp -R "${dirs}" ~/.config/ 2>> jcloger.log; then
+        printf "%s%s%s %sconfiguration installed succesfully%s\n" "${BLD}" "${CYE}" "${dir_name}" "${CGR}" "${CNC}"
+    else
+            printf "%s%sFailed to copy files and install. See %jcloger.log%s\n" "${BLD}" "${CRE}" "${CBL}" "${CNC}"
+    fi
 done
 
 printf "\n\n%s%sPolybar installation complete.%s\n" "${BLD}" "${CGR}" "${CNC}"

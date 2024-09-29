@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set the terminal title
 echo -ne "\033]0;JC Polybar Theme Switcher\007"

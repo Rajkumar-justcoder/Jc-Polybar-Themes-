@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 
 # Current Theme
 read -r JCPBTHEME < "$HOME"/.config/polybar/.jcpbtheme
