@@ -36,12 +36,6 @@ switch_theme() {
   done
 }
 
-# Function to handle errors
-handle_error() {
-  echo "Error: $1"
-  exit 1
-}
-
 # Main script
 
 display_current_theme

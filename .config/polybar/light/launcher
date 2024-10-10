@@ -10,11 +10,11 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ## Launch
 
-## Left bar
-polybar left -c ~/.config/polybar/JcDefault/config.ini &
+# ## Left bar
+# polybar left -c ~/.config/polybar/light/config.ini &
 
-## Right bar
-polybar right -c ~/.config/polybar/JcDefault/config.ini &
+# ## Right bar
+# polybar right -c ~/.config/polybar/light/config.ini &
 
-## Center bar
-polybar workspace -c ~/.config/polybar/JcDefault/config.ini &
+# ## Center bar
+# polybar workspace -c ~/.config/polybar/light/config.ini &
